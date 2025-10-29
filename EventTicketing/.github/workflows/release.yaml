@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '.vscode/**'
+      - '.idea/**'
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  EventTicketing-contracts-validate:
+    name: Run EventTicketing-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/EventTicketing-contracts-ci.yaml
+
+  EventTicketing-contracts-release:
+    name: Run EventTicketing-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/EventTicketing-contracts-cd.yaml
+    needs: EventTicketing-contracts-validate
+
+  EventTicketing-frontend-validate:
+    name: Run EventTicketing-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/EventTicketing-frontend-ci.yaml
+
+  EventTicketing-frontend-release:
+    name: Run EventTicketing-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/EventTicketing-frontend-cd.yaml
+    needs: EventTicketing-frontend-validate

@@ -1,0 +1,14 @@
+name: Pull Request validation
+
+on: [pull_request]
+
+
+jobs:
+  EventTicketing-contracts-ci:
+    name: Run EventTicketing-contracts validation
+    uses: ./.github/workflows/EventTicketing-contracts-ci.yaml
+
+  EventTicketing-frontend-ci:
+    name: Run EventTicketing-frontend validation
+    uses: ./.github/workflows/EventTicketing-frontend-ci.yaml
+
